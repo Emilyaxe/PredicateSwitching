@@ -49,10 +49,10 @@ public class SwitchingProcess {
 		this.buggyId = i;
 		this.sourceFilePath = sourceFilePath; // buggy/source/
 		this.projectPath = Constant.PROJECT_PRE_PATH + project + "/" + project
-				+ "_" + buggyId + "_buggy";
+				+ "_" + buggyId + "_buggy/";
 		this.failTestFile = Constant.FAIL_TEST_FILE + project + "/" + buggyId
 				+ ".txt";
-		this.traceFile = Constant.IF_TRACE_FILE + project + "/" + buggyId
+		this.traceFile = Constant.ROOT + Constant.IF_TRACE_FILE + project + "/" + buggyId
 				+ ".txt";
 	}
 

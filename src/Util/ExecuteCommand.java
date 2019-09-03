@@ -11,13 +11,20 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import  org.apache.commons.io.FileUtils;
 
 public class ExecuteCommand {
 	public static void backupFile(String filename){
 		String bashcmd = "cp " + filename + " " + filename + ".bak";
 		String[] cmd = new String[]{"/bin/bash", "-c", bashcmd};
 		execute(cmd);
-		
+	}
+	public  static  void copyAuxiliary(String path){
+		try {
+			FileUtils.copyFile(new File("./src/auxiliary/Dumper.java"), new File(path+"/auxiliary/Dumper.java"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void recoverFile(String filename){
 		String rmcmd = "rm " + filename;
@@ -51,27 +58,28 @@ public class ExecuteCommand {
 	
 	private static String getProjectTestCp(String failTest, String project,int buggyId) throws IOException {
 		// TODO Auto-generated method stub
-		     String tempScript = "";	      
+		     String tempScript = "";
+		     String root = Constant.ROOT;
 	        if(project.equals("Chart")){
 	        	tempScript = "java -cp \""+ Constant.D4J_Path + "/major/lib/junit-4.11.jar:"
 	        			+  Constant.D4J_Path + "major/lib/auxiliary.jar:build:build-tests:"
-	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " + failTest + " Chart " + buggyId;
+	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " + failTest + " Chart " + buggyId + " " + root;
 	        }else if(project.equals("Closure")){
 	        	tempScript = "java -cp \""+ Constant.D4J_Path + "/major/lib/junit-4.11.jar:"
 	        			+   Constant.D4J_Path + "/major/lib/auxiliary.jar:build/lib/rhino.jar:lib/*:build/classes:build/test:"
-	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " +  failTest + " Closure " + buggyId;
+	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " +  failTest + " Closure " + buggyId+ " " + root;
 	        }else if(project.equals("Lang")){
 	        	tempScript = "java -cp \""+ Constant.D4J_Path + "/major/lib/junit-4.11.jar:"
 	        			+   Constant.D4J_Path + "/major/lib/auxiliary.jar:target/test-classes:target/tests:target/classes:"
-	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner "+ failTest + " Lang " + buggyId;
+	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner "+ failTest + " Lang " + buggyId+ " " + root;
 	        }else if(project.equals("Math")){
 	        	tempScript = "java -cp \""+ Constant.D4J_Path + "/major/lib/junit-4.11.jar:"
 	        			+   Constant.D4J_Path + "/major/lib/auxiliary.jar:target/test-classes:target/classes:"
-	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " + failTest + " Math " + buggyId;
+	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " + failTest + " Math " + buggyId+ " " + root;
 	        }else if(project.equals("Time")){
 	        	tempScript = "java -cp \""+ Constant.D4J_Path + "/major/lib/junit-4.11.jar:"
 	        			+   Constant.D4J_Path + "/major/lib/auxiliary.jar:target/test-classes:target/classes:build/classes:build/tests:"
-	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " + failTest + " Time " + buggyId ;
+	        			+ Constant.D4J_Path + "major/lib/SingleJUnitTestRunner\" SingleJUnitTestRunner " + failTest + " Time " + buggyId+ " " + root;
 	        }
 	        return tempScript;
 	}

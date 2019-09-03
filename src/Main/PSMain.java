@@ -22,8 +22,8 @@ public class PSMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         String project = "Chart";
-        int buggyStart = 1;
-        int buggyEnd = 1;
+        int buggyStart = 4;
+        int buggyEnd = 4;
         
         int i = 0;
 		if (args.length == 3){
@@ -35,12 +35,15 @@ public class PSMain {
 				System.out.println("--------------  instrument " + project  + "  " +  i + " -------------------");
 				instrument(project,i);
 				System.out.println("--------------  compile " + project  + "  " +  i + " -------------------");
-				String prePath = Constant.PROJECT_PRE_PATH + project + "/" + project + "_" + i+ "_buggy";
-				defects4jCompile(prePath);
+				String prePath = Constant.PROJECT_PRE_PATH + project + "/" + project + "_" + i + "_";
+				D4jInfo d4jInfo = new D4jInfo(project, i, prePath);
+				ExecuteCommand.copyAuxiliary(d4jInfo.getProSrc());
+				defects4jCompile(prePath + "buggy");
+
 				ExecuteCommand.deleteTraceFile(project, i);
 				System.out.println("--------------  run fail test " + project  + "  " +  i + " -------------------");
 				String failTestFile = Constant.FAIL_TEST_FILE +  project + "/" + i + ".txt";		
-				runFailTest(project, i, prePath, failTestFile);
+				runFailTest(project, i, prePath +"buggy", failTestFile);
 				System.out.println("--------------  recover file  -------------------");
 				recoverFile(project,i);
 				
@@ -62,7 +65,7 @@ public class PSMain {
 		D4jInfo d4j = new Util.D4jInfo(project,i,prePath);	
 		
 		String sourceFilePath = d4j.getProSrc();
-		String instrumentWritefile = Constant.IF_TRACE_FILE
+		String instrumentWritefile = Constant.ROOT+ Constant.IF_TRACE_FILE
                 + project +  "/" + i + ".txt";      // record the running failing test result
 		
 		List<String> filelist = new ArrayList<String>();
@@ -85,6 +88,7 @@ public class PSMain {
 	}
 	private static void defects4jCompile(String projectPath){
 		try {
+
 			ExecuteCommand.defects4jCompile(projectPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -12,7 +12,7 @@ public class SingleJUnitTestRunner {
         String[] classAndMethod = args[0].split("::");
         String project = args[1];
         String bugid = args[2];
-        String path = args[3]
+        String path = args[3];
         Request request = Request.method(Class.forName(classAndMethod[0]), classAndMethod[1]);
         //String writeFilePath = "/Users/liangjingjing/WorkSpace/Tool/PredicateSwitching/traceIfResult/" + project + "/" + bugid + ".txt";
         String writeFilePath = path + "/traceIfResult/" + project + "/" + bugid + ".txt";

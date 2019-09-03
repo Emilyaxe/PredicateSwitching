@@ -10,12 +10,7 @@ import java.lang.management.*;
 
 public class SingleJUnitTestRunnerSwitch {
     public static void main(String... args) throws ClassNotFoundException {
-// get name representing the running Java virtual machine.
-// String name = ManagementFactory.getRuntimeMXBean().getName();
-// System.out.println(name);
-// // get pid
-// String pid = name.split("@")[0];
-// System.out.println(">>>>>>>> Pid is:" + pid);
+
         String[] classAndMethod = args[0].split("::");
         String project = args[1];
         String bugid = args[2];
