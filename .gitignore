@@ -3,6 +3,6 @@
 .settings
 .DS_Store
 .iml
-.idea/git rm -r --cached .
+.idea/
 bin/
 traceIfResult
